@@ -1,0 +1,393 @@
+/* ==========================================================================
+   CATALOG — compiled BEM stylesheet
+   Variables → Reset → Blocks: catalog, filter, search, card, load-more
+   Fluid layout: clamp() + % — no hard breakpoints
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Custom properties (design tokens)
+   -------------------------------------------------------------------------- */
+:root {
+  --color-accent:       #f0a500;
+  --color-accent-bg:    #ffc72c;
+  --color-price:        #FF3F3A;
+  --color-text-primary: #1E212C;
+  --color-text-muted:   #6b7280;
+  --color-text-subtitle: #1E212C;
+  --color-text-light:   #9ca3af;
+  --color-white:        #ffffff;
+  --color-bg:           #f9fafb;
+  --color-card-bg:      #ffffff;
+  --color-border:       #e5e7eb;
+  --color-filter-active-border: #FF3F3A;
+
+  /* Category badge colours */
+  --color-badge-marketing:   #03CEA4;
+  --color-badge-management:  #5A87FC;
+  --color-badge-hr:          #F89828;
+  --color-badge-design:      #F52F6E;
+  --color-badge-development: #7772F1;
+
+  /* Spacing & radius */
+  --radius-card:   4px;
+  --radius-badge:  6px;
+  --radius-input:  4px;
+  --radius-btn:    4px;
+
+  /* Typography */
+  --font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Fluid gutter & container */
+  --gutter:    clamp(12px, 2vw, 24px);
+  --container: min(100% - 2 * var(--gutter), 1200px);
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  min-width: 320px;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+ul  { list-style: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+input  { border: none; outline: none; font: inherit; background: none; }
+a { text-decoration: none; color: inherit; }
+
+/* --------------------------------------------------------------------------
+   Block: catalog
+   -------------------------------------------------------------------------- */
+.catalog {
+  width: var(--container);
+  margin-inline: auto;
+  padding-block: clamp(32px, 5vw, 72px);
+}
+
+/* Hero */
+.catalog__hero {
+  text-align: center;
+  margin-bottom: clamp(28px, 4vw, 80px);
+}
+
+.catalog__eyebrow {
+  font-size: clamp(0.7rem, 1.2vw, 0.875rem);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-subtitle);
+  margin-bottom: 8px;
+}
+
+.catalog__title {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+/* Toolbar */
+.catalog__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: clamp(12px, 2vw, 20px);
+  margin-bottom: clamp(24px, 4vw, 55px);
+}
+
+/* Grid */
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: clamp(16px, 2.5vw, 28px);
+}
+
+/* Empty state */
+.catalog__empty {
+  text-align: center;
+  padding: clamp(32px, 6vw, 80px) 16px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* Footer */
+.catalog__footer {
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(32px, 5vw, 64px);
+}
+
+/* --------------------------------------------------------------------------
+   Block: filter
+   -------------------------------------------------------------------------- */
+.filter__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(6px, 1.2vw, 16px);
+}
+
+.filter__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px clamp(10px, 1.5vw, 18px);
+  border-radius: var(--radius-btn);
+  font-size: clamp(0.75rem, 16px, 1rem);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-muted);
+  border: 1.5px solid transparent;
+  transition: color 0.18s, border-color 0.18s;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.filter__btn:hover {
+  color: var(--color-text-primary);
+}
+
+.filter__btn--active {
+  color: var(--color-filter-active-border);
+  border-color: var(--color-filter-active-border);
+  font-weight: var(--fw-semibold);
+}
+
+.filter__count {
+  font-size: 0.7em;
+  font-weight: var(--fw-medium);
+  color: var(--color-text-light);
+  vertical-align: super;
+}
+
+.filter__btn--active .filter__count {
+  color: var(--color-filter-active-border);
+}
+
+/* --------------------------------------------------------------------------
+   Block: search
+   -------------------------------------------------------------------------- */
+.search {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(160px, 22vw, 260px);
+}
+
+.search__label {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+.search__wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search__input {
+  width: 100%;
+  padding: 8px 36px 8px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  font-size: clamp(0.75rem, 1.1vw, 1rem);
+  color: var(--color-text-primary);
+  background: var(--color-white);
+  transition: border-color 0.18s;
+}
+
+.search__input::placeholder { color: var(--color-text-light); }
+
+.search__input:focus {
+  border-color: var(--color-accent);
+}
+
+/* Remove native search clear button */
+.search__input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.search__icon {
+  position: absolute;
+  right: 11px;
+  width: 16px; height: 16px;
+  color: var(--color-text-light);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Block: card
+   -------------------------------------------------------------------------- */
+.card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-card);
+  border-color: #E5E8ED;
+  overflow: hidden;
+  box-shadow: 0 4px 4px -4px rgba(30, 33, 44, 0.03), 0 12px 10px -6px rgba(154, 156, 165, 0.04), 0 30px 24px -10px rgba(154, 156, 165, 0.05), 0 80px 80px -20px rgba(154, 156, 165, 0.08);
+  transition: box-shadow 0.22s, transform 0.22s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+}
+
+/* Image area */
+.card__image-wrap {
+  position: relative;
+  background: var(--color-accent-bg);
+  overflow: hidden;
+  /* aspect ratio fluid: roughly 16:9-ish on larger screens */
+  aspect-ratio: 5 / 3;
+}
+
+/* Decorative concentric circles background */
+.card__image-wrap::before,
+.card__image-wrap::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  pointer-events: none;
+}
+.card__image-wrap::before {
+  width: 70%; padding-top: 70%;
+}
+.card__image-wrap::after {
+  width: 110%; padding-top: 110%;
+}
+
+.card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Body */
+.card__body {
+  padding: clamp(12px, 2vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Badge */
+.card__badge {
+  display: inline-block;
+  padding: 1px 10px;
+  border-radius: var(--radius-badge);
+  font-size: clamp(0.6rem, 0.9vw, 16px);
+  font-weight: var(--fw-semibold);
+  color: var(--color-white);
+  text-transform: capitalize;
+  align-self: flex-start;
+  line-height: 1.6;
+}
+
+.card__badge--marketing   { background: var(--color-badge-marketing); }
+.card__badge--management  { background: var(--color-badge-management); }
+.card__badge--hr          { background: var(--color-badge-hr); }
+.card__badge--design      { background: var(--color-badge-design); }
+.card__badge--development { background: var(--color-badge-development); }
+
+/* Title */
+.card__title {
+  font-size: clamp(0.875rem, 1.3vw, 20px);
+  font-weight: var(--fw-semibold);
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  margin-top: 2px;
+}
+
+/* Meta row: price + author */
+.card__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: clamp(0.75rem, 1vw, 18px);
+}
+
+.card__price {
+  font-weight: var(--fw-bold);
+  color: var(--color-price);
+}
+
+.card__divider {
+  color: var(--color-border);
+  font-weight: var(--fw-regular);
+}
+
+.card__author {
+  color: var(--color-text-muted);
+  font-weight: var(--fw-regular);
+}
+
+/* --------------------------------------------------------------------------
+   Block: load-more
+   -------------------------------------------------------------------------- */
+.load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-primary);
+  padding: 10px 24px;
+  border-radius: 999px;
+ 
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+}
+
+.load-more:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.load-more--hidden { display: none; }
+
+.load-more__icon {
+  width: 18px; height: 18px;
+  animation: spin 1s linear infinite paused;
+}
+
+.load-more:active .load-more__icon,
+.load-more--loading .load-more__icon {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   Utility: visually hidden (for accessibility)
+   -------------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
